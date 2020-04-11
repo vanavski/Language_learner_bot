@@ -12,3 +12,17 @@ C:\Users\Nikita\source\repos\LanguageBot\LanguageBot\bin\Debug\netcoreapp3.0\Tel
 C:\Users\Nikita\source\repos\LanguageBot\LanguageBot\obj\Debug\netcoreapp3.0\LanguageBot.csproj.CopyComplete
 C:\Users\Nikita\source\repos\LanguageBot\LanguageBot\obj\Debug\netcoreapp3.0\LanguageBot.dll
 C:\Users\Nikita\source\repos\LanguageBot\LanguageBot\obj\Debug\netcoreapp3.0\LanguageBot.pdb
+D:\REPOSITORIES\LLB\bin\Debug\netcoreapp3.0\LanguageBot.exe
+D:\REPOSITORIES\LLB\bin\Debug\netcoreapp3.0\LanguageBot.deps.json
+D:\REPOSITORIES\LLB\bin\Debug\netcoreapp3.0\LanguageBot.runtimeconfig.json
+D:\REPOSITORIES\LLB\bin\Debug\netcoreapp3.0\LanguageBot.runtimeconfig.dev.json
+D:\REPOSITORIES\LLB\bin\Debug\netcoreapp3.0\LanguageBot.dll
+D:\REPOSITORIES\LLB\bin\Debug\netcoreapp3.0\LanguageBot.pdb
+D:\REPOSITORIES\LLB\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll
+D:\REPOSITORIES\LLB\bin\Debug\netcoreapp3.0\Telegram.Bot.dll
+D:\REPOSITORIES\LLB\obj\Debug\netcoreapp3.0\LanguageBot.csprojAssemblyReference.cache
+D:\REPOSITORIES\LLB\obj\Debug\netcoreapp3.0\LanguageBot.AssemblyInfoInputs.cache
+D:\REPOSITORIES\LLB\obj\Debug\netcoreapp3.0\LanguageBot.AssemblyInfo.cs
+D:\REPOSITORIES\LLB\obj\Debug\netcoreapp3.0\LanguageBot.csproj.CopyComplete
+D:\REPOSITORIES\LLB\obj\Debug\netcoreapp3.0\LanguageBot.dll
+D:\REPOSITORIES\LLB\obj\Debug\netcoreapp3.0\LanguageBot.pdb
