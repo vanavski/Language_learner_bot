@@ -13,6 +13,7 @@ namespace LanguageBot
 {
     public class Bot
     {
+        //пользователь вошел, проверяешь его айди в бд, (сделать регистрацию в начале)
         //Api бота
         private const string token = "1145240060:AAGBCPgnDnBHNjgRAo3SdobV2CJxpg7zd1U";
         public TelegramBotClient Client;

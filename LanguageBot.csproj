@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <Folder Include="View\" />
-    <Folder Include="Database\" />
   </ItemGroup>
 
 </Project>
