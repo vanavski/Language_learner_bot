@@ -1,5 +1,6 @@
 ﻿using LanguageBot.Database;
 using MySql.Data.MySqlClient;
+using Npgsql;
 using System;
 
 namespace LanguageBot
@@ -11,11 +12,11 @@ namespace LanguageBot
         static void Main(string[] args)
         {
             //инициализация бота
-            Bot bot = new Bot();
+            //Bot bot = new Bot();
             //запуск
-            bot.TestApiAsync();
+            //bot.TestApiAsync();
             Console.WriteLine("Getting Connection ...");
-            MySqlConnection conn = DBUtils.GetDBConnection();
+            NpgsqlConnection conn = DBUtils.GetDBConnection();
 
             try
             {
