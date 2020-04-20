@@ -12,9 +12,9 @@ namespace LanguageBot
         static void Main(string[] args)
         {
             //инициализация бота
-            //Bot bot = new Bot();
+            Bot bot = new Bot();
             //запуск
-            //bot.TestApiAsync();
+            bot.TestApiAsync();
             Console.WriteLine("Getting Connection ...");
             NpgsqlConnection conn = DBUtils.GetDBConnection();
 
