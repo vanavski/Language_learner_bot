@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LanguageBot.Database;
+using MySql.Data.MySqlClient;
+using System;
 
 namespace LanguageBot
 {
@@ -12,6 +14,21 @@ namespace LanguageBot
             Bot bot = new Bot();
             //запуск
             bot.TestApiAsync();
+            Console.WriteLine("Getting Connection ...");
+            MySqlConnection conn = DBUtils.GetDBConnection();
+
+            try
+            {
+                Console.WriteLine("Openning Connection ...");
+
+                conn.Open();
+
+                Console.WriteLine("Connection successful!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
             Console.ReadLine();
         }
     }
