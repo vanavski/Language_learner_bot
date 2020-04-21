@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LanguageBot.Database.Entity
+namespace LanguageBot.Entities.Cards
 {
-    class LanguageCardsMenu: IBaseMenu
+    class CardsMenu : IBaseMenu
     {
     }
 }

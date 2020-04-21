@@ -7,5 +7,6 @@ namespace LanguageBot.Database
     public interface IBaseDatabase
     {
         public int GetDbToBackend();
+        public int GetToDb();
     }
 }

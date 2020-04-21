@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LanguageBot.Database.Entity
+namespace LanguageBot.Entities
 {
     class Game
     {
