@@ -1,12 +1,18 @@
-﻿using LanguageBot.Database;
+﻿using LanguageBot._2Backend.Cards;
+using LanguageBot.Database;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LanguageBot._3Database.Cards
 {
     class CardsDb : IBaseDatabase
     {
+        private CardsController cards;
+
+        public CardsDb(CardsController cards)
+        {
+            this.cards = cards;
+        }
+
         public int GetDbToBackend()
         {
             throw new NotImplementedException();

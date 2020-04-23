@@ -1,12 +1,18 @@
-﻿using LanguageBot.Database;
+﻿using LanguageBot._2Backend.Video;
+using LanguageBot.Database;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LanguageBot._3Database.Video
 {
     class VideoDb : IBaseDatabase
     {
+        private VideoController controller;
+
+        public VideoDb(VideoController controller)
+        {
+            this.controller = controller;
+        }
+
         public int GetDbToBackend()
         {
             throw new NotImplementedException();

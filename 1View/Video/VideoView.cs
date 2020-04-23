@@ -1,12 +1,17 @@
-﻿using LanguageBot.View;
+﻿using LanguageBot.Entities.Video;
+using LanguageBot.View;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LanguageBot._1View.Video
 {
     class VideoView : IBaseView
     {
+        private VideoMenu video;
+        public VideoView(VideoMenu video)
+        {
+            this.video = video;
+        }
+
         public int GetViewToBackend()
         {
             throw new NotImplementedException();
