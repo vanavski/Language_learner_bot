@@ -6,6 +6,7 @@ namespace LanguageBot.View
 {
     public interface IBaseView
     {
-        public int GetViewToBackend();
+        public void GetViewToBackend(string query);
+        public bool CheckCommand();
     }
 }

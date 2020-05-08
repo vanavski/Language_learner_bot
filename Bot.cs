@@ -17,9 +17,11 @@ namespace LanguageBot
         //Api бота
         private const string token = "1145240060:AAGBCPgnDnBHNjgRAo3SdobV2CJxpg7zd1U";
         public TelegramBotClient Client;
+        CommandInitializer commands;
 
         public Bot()
         {
+            commands = new CommandInitializer();
         }
 
         //запуск бота
@@ -81,6 +83,17 @@ namespace LanguageBot
         private string AnalyzeQuery(Update update)
         {
             var query = update.Message.Text;
+            var dict = commands.GetDictionaty();
+            if (dict.ContainsKey(query))
+            {
+                var view = dict[query];
+                if (view.CheckCommand())
+                {
+                    view.GetViewToBackend(query);
+                    // изменить последнюю команду пользователя TODO
+                }
+                
+            }
             var                    //стартовая команда при запуске бота
                     message = query switch
                     {

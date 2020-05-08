@@ -6,10 +6,14 @@ using System.Text;
 
 namespace LanguageBot._1View.Statistic
 {
-    class StatisticsView : IBaseView
+    public class StatisticsView : IBaseView
     {
         private StatisticsMenu statistics;
 
+        public StatisticsView()
+        {
+
+        }
         public StatisticsView(StatisticsMenu statistics)
         {
             this.statistics = statistics;

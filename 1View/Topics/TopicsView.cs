@@ -6,10 +6,14 @@ using System.Text;
 
 namespace LanguageBot._1View.Topics
 {
-    class TopicsView : IBaseView
+    public class TopicsView : IBaseView
     {
         private TopicsMenu topics;
 
+        public TopicsView()
+        {
+
+        }
         public TopicsView(TopicsMenu topics)
         {
             this.topics = topics;
