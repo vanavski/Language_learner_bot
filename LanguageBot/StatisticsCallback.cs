@@ -13,7 +13,7 @@ namespace LanguageBot
 
         public override bool CanUse(long userId, CallbackQuery callback)
         {
-            var repo = Depends.Provider.GetService<UserRepository>();
+            var repo = Depends.Provider.GetService<Repository>();
             var user = repo.GetUserById(userId);
             return user != null && callback.Data.EndsWith(Name);
         }
@@ -25,7 +25,7 @@ namespace LanguageBot
                 });
         public override Task ExecuteAsync(CallbackQuery callback, TelegramBotClient client)
         {
-            var repo = Depends.Provider.GetService<UserRepository>();
+            var repo = Depends.Provider.GetService<Repository>();
             var user = repo.GetUserById(callback.From.Id);
             user.PreviousCommand = "stat";
             repo.UpdateUser(user);
