@@ -10,6 +10,8 @@ namespace LanguageBot.DataBase
     {
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Question> Questions { get; set; }
+
         public DBPGSQLUtils(DbContextOptions<DBPGSQLUtils> options) : base(options)
         {
             Database.EnsureCreated();

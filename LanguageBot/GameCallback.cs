@@ -7,34 +7,31 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace LanguageBot
 {
-    public class LanguageCallBack : CallBackCommand
+    public class GameCallBack : CallBackCommand
     {
-        public override string Name => "chosenLang";
+        public override string Name => "game";
 
         public override bool CanUse(long userId, CallbackQuery callback)
         {
             var repo = Depends.Provider.GetService<Repository>();
             var user = repo.GetUserById(userId);
-            return user != null && callback.Data.StartsWith(Name);
+            return user != null && callback.Data.EndsWith(Name);
         }
 
-
         private static InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(new[]
-               {new []
-                    {
-                        InlineKeyboardButton.WithCallbackData("Igra","menu:igra")} ,new[]{
-                        InlineKeyboardButton.WithCallbackData("Statistika","menu:statistika")}
+               {new []{
+                    InlineKeyboardButton.WithCallbackData("С русского на выбранный","game:to"),
+                    InlineKeyboardButton.WithCallbackData("С выбранного на русский","game:from")},
+                new []{
+                        InlineKeyboardButton.WithCallbackData("« Меню","menu")}
                 });
-
         public override Task ExecuteAsync(CallbackQuery callback, TelegramBotClient client)
         {
             var repo = Depends.Provider.GetService<Repository>();
             var user = repo.GetUserById(callback.From.Id);
-            var lng = callback.Data.Split(":")[1];
-            user.PreviousCommand= "chosenLang";
-            user.Language = lng;
+            user.PreviousCommand = "game";
             repo.UpdateUser(user);
-            client.SendTextMessageAsync(chatId:callback.From.Id,text:"Choose comand",replyMarkup:inlineKeyboard);
+            client.SendTextMessageAsync(chatId: callback.From.Id, text: "Выберите режим перевода:", replyMarkup: inlineKeyboard);
             return Task.CompletedTask;
         }
     }

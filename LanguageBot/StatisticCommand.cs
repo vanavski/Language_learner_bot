@@ -15,7 +15,7 @@ namespace LanguageBot
 
         public override bool CanUse(long chatId,Message message)
         {
-            var repo = Depends.Provider.GetService<UserRepository>();
+            var repo = Depends.Provider.GetService<Repository>();
             var user = repo.GetUserById(chatId);
             return user.PreviousCommand == PreviousCommand;
         }

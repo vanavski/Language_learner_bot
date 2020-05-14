@@ -32,7 +32,7 @@ namespace LanguageBot
                         InlineKeyboardButton.WithCallbackData("Китайкий","chosenLang:Chn")}});
         public override Task ExecuteAsync(Message message, TelegramBotClient client)
         {
-            var repo=Depends.Provider.GetService<UserRepository>();
+            var repo=Depends.Provider.GetService<Repository>();
             var user = new User()
             {
                 Id = message.From.Id,
