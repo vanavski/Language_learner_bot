@@ -13,5 +13,9 @@ namespace LanguageBot
         public string Name { get; set; }
 
         public string Language { get; set; }
+
+        public int RightAnsw { get; set; }
+
+        public int WrongAnsw { get; set; }
     }
 }

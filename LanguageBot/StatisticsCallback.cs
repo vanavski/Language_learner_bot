@@ -7,32 +7,29 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace LanguageBot
 {
-    public class LanguageCallBack : CallBackCommand
+    public class StatisticsCallBack : CallBackCommand
     {
-        public override string Name => "chosenLang";
+        public override string Name => "stat";
 
         public override bool CanUse(long userId, CallbackQuery callback)
         {
-            var repo = Depends.Provider.GetService<Repository>();
+            var repo = Depends.Provider.GetService<UserRepository>();
             var user = repo.GetUserById(userId);
-            return user != null && callback.Data.StartsWith(Name);
+            return user != null && callback.Data.EndsWith(Name);
         }
 
         private static InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(new[]
                {new []
                     {
-                        InlineKeyboardButton.WithCallbackData("Перейти в меню","menu")}
+                        InlineKeyboardButton.WithCallbackData("Меню","menu")}
                 });
-
         public override Task ExecuteAsync(CallbackQuery callback, TelegramBotClient client)
         {
-            var repo = Depends.Provider.GetService<Repository>();
+            var repo = Depends.Provider.GetService<UserRepository>();
             var user = repo.GetUserById(callback.From.Id);
-            var lng = callback.Data.Split(":")[1];
-            user.PreviousCommand= "chosenLang";
-            user.Language = lng;
+            user.PreviousCommand = "stat";
             repo.UpdateUser(user);
-            client.SendTextMessageAsync(chatId:callback.From.Id,text:"Вы успешно зарегистрировались!", replyMarkup: inlineKeyboard);
+            client.SendTextMessageAsync(chatId: callback.From.Id, text: "Статистика ответов:\nПравильных - " + user.RightAnsw + "\nНеправильных - "+ user.WrongAnsw, replyMarkup: inlineKeyboard);
             return Task.CompletedTask;
         }
     }
