@@ -7,9 +7,9 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace LanguageBot
 {
-    public class LanguageCallBack : CallBackCommand
+    public class MenuCallBack : CallBackCommand
     {
-        public override string Name => "chosenLang";
+        public override string Name => "menu";
 
         public override bool CanUse(long userId, CallbackQuery callback)
         {
@@ -21,18 +21,23 @@ namespace LanguageBot
         private static InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(new[]
                {new []
                     {
-                        InlineKeyboardButton.WithCallbackData("Перейти в меню","menu")}
+                        InlineKeyboardButton.WithCallbackData("Играть","menu:game")} ,new[]{
+                        InlineKeyboardButton.WithCallbackData("Статистика","menu:stat")}
                 });
 
         public override Task ExecuteAsync(CallbackQuery callback, TelegramBotClient client)
         {
             var repo = Depends.Provider.GetService<UserRepository>();
             var user = repo.GetUserById(callback.From.Id);
-            var lng = callback.Data.Split(":")[1];
-            user.PreviousCommand= "chosenLang";
-            user.Language = lng;
+            user.PreviousCommand = "menu";
             repo.UpdateUser(user);
-            client.SendTextMessageAsync(chatId:callback.From.Id,text:"Вы успешно зарегистрировались!", replyMarkup: inlineKeyboard);
+
+            if (callback.Data.EndsWith("stat"))
+                Bot.CallBackCommands[2].ExecuteAsync(callback, client);
+            else if (callback.Data.EndsWith("game"))
+                Bot.CallBackCommands[3].ExecuteAsync(callback, client);
+            else 
+                client.SendTextMessageAsync(chatId: callback.From.Id, text: "Меню:", replyMarkup: inlineKeyboard);
             return Task.CompletedTask;
         }
     }

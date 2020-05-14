@@ -21,11 +21,14 @@ namespace LanguageBot
             Commands = new List<Command>() {
                 new StartCommand(),
                 new ChooseLang(),
-                new StartCommand()
+                new MenuCommand(),
+                new StatisticsCommand()
             };
             CallBackCommands = new List<CallBackCommand>()
             {
-                new LanguageCallBack()
+                new LanguageCallBack(),
+                new MenuCallBack(),
+                new StatisticsCallBack()
             };
             var socks = new HttpToSocks5Proxy("96.96.33.133",1080);
             return client= new TelegramBotClient("1145240060:AAGBCPgnDnBHNjgRAo3SdobV2CJxpg7zd1U",socks);

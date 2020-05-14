@@ -27,9 +27,9 @@ namespace LanguageBot
         private static InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(new[]
                {new []
                     {
-                        InlineKeyboardButton.WithCallbackData("English","chosenLang:Eng")} ,new[]{
-                        InlineKeyboardButton.WithCallbackData("Немейский","chosenLang:Nem")} ,new[]{
-                        InlineKeyboardButton.WithCallbackData("Китайкий","chosenLang:Chn")}});
+                        InlineKeyboardButton.WithCallbackData("🇬🇧Английский","chosenLang:Eng")} ,new[]{
+                        InlineKeyboardButton.WithCallbackData("🇩🇪Немецкий","chosenLang:Nem")} ,new[]{
+                        InlineKeyboardButton.WithCallbackData("🇨🇳Китайский","chosenLang:Chn")}});
         public override Task ExecuteAsync(Message message, TelegramBotClient client)
         {
             var repo=Depends.Provider.GetService<UserRepository>();
@@ -37,10 +37,12 @@ namespace LanguageBot
             {
                 Id = message.From.Id,
                 Name = message.From.FirstName,
-                PreviousCommand = "/start"
+                PreviousCommand = "/start",
+                RightAnsw = 0,
+                WrongAnsw = 0
             };
             repo.AddUser(user);
-            client.SendTextMessageAsync(message.Chat.Id,"ChooseLang",replyMarkup:inlineKeyboard);
+            client.SendTextMessageAsync(message.Chat.Id,"Выберите язык:",replyMarkup:inlineKeyboard);
             return Task.CompletedTask;
         }
     }

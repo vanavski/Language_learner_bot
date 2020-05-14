@@ -34,6 +34,5 @@ namespace LanguageBot.DataBase
             db.Users.Update(user);
             db.SaveChanges();
         }
-
     }
 }

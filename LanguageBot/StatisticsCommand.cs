@@ -3,14 +3,15 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using Microsoft.Extensions.DependencyInjection;
 using LanguageBot.DataBase;
+using System;
 
 namespace LanguageBot
 {
-    public class StatisticCommand : Command
+    public class StatisticsCommand : Command
     {
-        public override string PreviousCommand => "/ChosseLang";
+        public override string PreviousCommand => "menu";
 
-        public override string CommandName => "/Static";
+        public override string CommandName => "stat";
 
 
         public override bool CanUse(long chatId,Message message)
@@ -21,9 +22,7 @@ namespace LanguageBot
         }
         public override Task ExecuteAsync(Message message, TelegramBotClient client)
         {
-            //db statisticget and send client; 
-            client.SendTextMessageAsync(chatId: message.Chat.Id, text: "Db int");           
-            return Task.CompletedTask;
+            throw new NotImplementedException();
         }
     }
 }
