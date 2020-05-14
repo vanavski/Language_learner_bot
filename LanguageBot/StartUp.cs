@@ -14,6 +14,7 @@ namespace LanguageBot
             var service = Depends.Service;
             var cnsstr = DBUtils.ConnectionStr;
             service.AddDbContext<DBPGSQLUtils>(op => op.UseNpgsql(cnsstr));
+            //TODO: add different reps
             service.AddTransient<Repository>();
             Depends.Provider = Depends.Service.BuildServiceProvider();
         }

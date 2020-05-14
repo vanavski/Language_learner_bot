@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -16,7 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Command\" />
+    <Folder Include="Callbacks\Menu\Game\GameMode\GameType\" />
+    <Folder Include="Callbacks\Menu\Video\" />
+    <Folder Include="Callbacks\Menu\Topic\" />
   </ItemGroup>
 
 </Project>

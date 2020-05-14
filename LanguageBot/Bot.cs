@@ -8,9 +8,9 @@ namespace LanguageBot
     {
         private static TelegramBotClient client;
 
-        public static List<CallBackCommand> CallBackCommands;
+        public static List<CallBackCommand> CallBackCommands { get; private set; }
 
-        public static List<Command> Commands;
+        public static List<Command> Commands { get; private set; }
 
         public static TelegramBotClient Get()
         {
@@ -19,14 +19,14 @@ namespace LanguageBot
                 return client;
             }
             Commands = new List<Command>() {
-                new StartCommand(),
-                new ChooseLang(),
-                new MenuCommand(),
-                new StatisticsCommand(),
-                new GameCommand(),
-                new GameToCommand(),
-                new GameFromCommand(),
-                new StatisticsCommand()
+                new StartCommand()
+                //new ChooseLang(),
+                //new MenuCommand(),
+                //new StatisticsCommand(),
+                //new GameCommand(),
+                //new GameToCommand(),
+                //new GameFromCommand(),
+                //new StatisticsCommand()
             };
             CallBackCommands = new List<CallBackCommand>()
             {
@@ -38,8 +38,8 @@ namespace LanguageBot
                 new GameFromCallBack(),
                 new StatisticsCallBack()
             };
-            var socks = new HttpToSocks5Proxy("96.96.33.133",1080);
-            return client= new TelegramBotClient("1145240060:AAGBCPgnDnBHNjgRAo3SdobV2CJxpg7zd1U",socks);
+            var socks = new HttpToSocks5Proxy("96.96.33.133", 1080);
+            return client = new TelegramBotClient("1145240060:AAGBCPgnDnBHNjgRAo3SdobV2CJxpg7zd1U", socks);
         }
     }
 }
