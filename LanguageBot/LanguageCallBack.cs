@@ -1,4 +1,5 @@
 ﻿using LanguageBot.DataBase;
+using LanguageBot.DataBase.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Telegram.Bot;
@@ -13,8 +14,8 @@ namespace LanguageBot
 
         public override bool CanUse(long userId, CallbackQuery callback)
         {
-            var repo = Depends.Provider.GetService<Repository>();
-            var user = repo.GetUserById(userId);
+            var repo = Depends.Provider.GetService<UsersRepository>();
+            var user = repo.Get(userId);
             return user != null && callback.Data.StartsWith(Name);
         }
 
@@ -28,13 +29,18 @@ namespace LanguageBot
 
         public override Task ExecuteAsync(CallbackQuery callback, TelegramBotClient client)
         {
-            var repo = Depends.Provider.GetService<Repository>();
-            var user = repo.GetUserById(callback.From.Id);
+            var repo = Depends.Provider.GetService<UsersRepository>();
+            var user = repo.Get(callback.From.Id);
             var lng = callback.Data.Split(":")[1];
             user.PreviousCommand= "chosenLang";
             user.Language = lng;
+<<<<<<< Updated upstream:LanguageBot/LanguageCallBack.cs
             repo.UpdateUser(user);
             client.SendTextMessageAsync(chatId:callback.From.Id,text:"Choose comand",replyMarkup:inlineKeyboard);
+=======
+            repo.Update(user);
+            client.EditMessageTextAsync(chatId:callback.From.Id, messageId: callback.Message.MessageId, text:"Вы успешно зарегистрировались!", replyMarkup: inlineKeyboard);
+>>>>>>> Stashed changes:LanguageBot/Callbacks/LanguageCallBack.cs
             return Task.CompletedTask;
         }
     }

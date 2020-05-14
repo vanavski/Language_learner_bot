@@ -13,5 +13,14 @@ namespace LanguageBot
         public string Name { get; set; }
 
         public string Language { get; set; }
+<<<<<<< Updated upstream:LanguageBot/User.cs
+=======
+
+        public int RightAnsw { get; set; }
+
+        public int WrongAnsw { get; set; }
+
+        public int QuestCounter { get; set; }
+>>>>>>> Stashed changes:LanguageBot/Entity/User.cs
     }
 }

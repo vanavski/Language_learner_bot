@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using LanguageBot.DataBase.Repositories;
 
 namespace LanguageBot
 {
@@ -14,7 +15,14 @@ namespace LanguageBot
             var service = Depends.Service;
             var cnsstr = DBUtils.ConnectionStr;
             service.AddDbContext<DBPGSQLUtils>(op => op.UseNpgsql(cnsstr));
+<<<<<<< Updated upstream
             service.AddTransient<Repository>();
+=======
+            //TODO: add different reps
+            service.AddTransient<UsersRepository>();
+            service.AddTransient<QuestionRepository>();
+            service.AddTransient<StatisticsRepository>();
+>>>>>>> Stashed changes
             Depends.Provider = Depends.Service.BuildServiceProvider();
             //////////////
         }

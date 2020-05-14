@@ -1,4 +1,5 @@
 ﻿using LanguageBot.DataBase;
+using LanguageBot.DataBase.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,8 @@ namespace LanguageBot
 
         public override bool CanUse(long userId, CallbackQuery callback)
         {
-            var repo = Depends.Provider.GetService<Repository>();
-            var user = repo.GetUserById(userId);
+            var repo = Depends.Provider.GetService<UsersRepository>();
+            var user = repo.Get(userId);
             return user != null &&
                 (callback.Data.EndsWith(Name)
                 || (callback.Data.StartsWith(Name) && callback.Data.EndsWith("right"))
@@ -26,12 +27,13 @@ namespace LanguageBot
 
         public override Task ExecuteAsync(CallbackQuery callback, TelegramBotClient client)
         {
-            var repo = Depends.Provider.GetService<Repository>();
+            var usRepo = Depends.Provider.GetService<UsersRepository>();
+            var qRepo = Depends.Provider.GetService<QuestionRepository>();
 
-            var user = repo.GetUserById(callback.From.Id);
+            var user = usRepo.Get(callback.From.Id);
             user.PreviousCommand = "from";
 
-            var questions = repo.GetQuestionsByLang(user.Language);
+            var questions = qRepo.Get(user.Language);
 
             var rnd = new Random();
             int id = rnd.Next(0, questions.Count - 1);
@@ -63,9 +65,9 @@ namespace LanguageBot
                 user.WrongAnsw += 1;
             }
 
-            repo.UpdateUser(user);
+            usRepo.Update(user);
 
-            client.SendTextMessageAsync(chatId: callback.From.Id, text: prefix
+            client.EditMessageTextAsync(chatId: callback.From.Id, messageId: callback.Message.MessageId, text: prefix
                 + "Выберите правильный перевод для \""
                 + questions.ElementAt(id).Value + "\":",
                 replyMarkup: inlineKeyboard);

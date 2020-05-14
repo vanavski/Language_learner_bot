@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LanguageBot.Entity;
+using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace LanguageBot.DataBase
         public DbSet<User> Users { get; set; }
 
         public DbSet<Question> Questions { get; set; }
+
+        public DbSet<Result> Results { get; set; }
 
         public DBPGSQLUtils(DbContextOptions<DBPGSQLUtils> options) : base(options)
         {
