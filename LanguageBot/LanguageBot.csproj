@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="HttpToSocks5Proxy" Version="1.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.4" />
     <PackageReference Include="Npgsql" Version="4.1.3.1" />
@@ -16,9 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Callbacks\Menu\Game\GameMode\GameType\" />
-    <Folder Include="Callbacks\Menu\Video\" />
-    <Folder Include="Callbacks\Menu\Topic\" />
+    <Folder Include="Command\" />
   </ItemGroup>
 
 </Project>

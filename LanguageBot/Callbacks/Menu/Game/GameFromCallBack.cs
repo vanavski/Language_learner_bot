@@ -1,4 +1,5 @@
 ﻿using LanguageBot.DataBase;
+using LanguageBot.DataBase.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,15 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace LanguageBot
 {
-    public class GameToCallBack : CallBackCommand
+    public class GameFromCallBack : CallBackCommand
     {
-        public override string Name => "to";
+        public override string Name => "from";
 
         public override bool CanUse(long userId, CallbackQuery callback)
         {
-            var repo = Depends.Provider.GetService<Repository>();
-            var user = repo.GetUserById(userId);
-            return user != null && 
+            var repo = Depends.Provider.GetService<UsersRepository>();
+            var user = repo.Get(userId);
+            return user != null &&
                 (callback.Data.EndsWith(Name)
                 || (callback.Data.StartsWith(Name) && callback.Data.EndsWith("right"))
                 || (callback.Data.StartsWith(Name) && callback.Data.EndsWith("wrong")));
@@ -26,21 +27,22 @@ namespace LanguageBot
 
         public override Task ExecuteAsync(CallbackQuery callback, TelegramBotClient client)
         {
-            var repo = Depends.Provider.GetService<Repository>();
+            var usRepo = Depends.Provider.GetService<UsersRepository>();
+            var qRepo = Depends.Provider.GetService<QuestionRepository>();
 
-            var user = repo.GetUserById(callback.From.Id);
-            user.PreviousCommand = "to";
+            var user = usRepo.Get(callback.From.Id);
+            user.PreviousCommand = "from";
 
-            var questions = repo.GetQuestionsByLang(user.Language);
+            var questions = qRepo.Get(user.Language);
 
             var rnd = new Random();
             int id = rnd.Next(0, questions.Count - 1);
 
             var answ = GenRandomAnsw(id, questions.Count);
             var genKeyboard = new[]{
-                    InlineKeyboardButton.WithCallbackData(questions.ElementAt(id).Value,"to:"+questions.ElementAt(id).Value+":right"),
-                    InlineKeyboardButton.WithCallbackData(questions.ElementAt(answ[0]).Value,"to:"+questions.ElementAt(id).Value+":wrong"),
-                    InlineKeyboardButton.WithCallbackData(questions.ElementAt(answ[1]).Value,"to:"+questions.ElementAt(id).Value+":wrong")};
+                    InlineKeyboardButton.WithCallbackData(questions.ElementAt(id).Key,"from:"+questions.ElementAt(id).Key+":right"),
+                    InlineKeyboardButton.WithCallbackData(questions.ElementAt(answ[0]).Key,"from:"+questions.ElementAt(id).Key+":wrong"),
+                    InlineKeyboardButton.WithCallbackData(questions.ElementAt(answ[1]).Key,"from:"+questions.ElementAt(id).Key+":wrong")};
             Shuffle(genKeyboard);
 
             var inlineKeyboard = new InlineKeyboardMarkup(new[]
@@ -53,23 +55,43 @@ namespace LanguageBot
 
             if (callback.Data.EndsWith("right"))
             {
-                prefix = "Правильно! Другой вопрос. ";
+                user.QuestCounter -= 1;
+                prefix = "Правильно! ";
                 user.RightAnsw += 1;
             }
-                
+
             else if (callback.Data.EndsWith("wrong"))
             {
-                prefix = "Неправильно! Верный ответ: \"" + callback.Data.Split(":")[1] + "\". Другой вопрос. ";
+                user.QuestCounter -= 1;
+                prefix = "Неправильно! Верный ответ: \"" + callback.Data.Split(":")[1] + "\". ";
                 user.WrongAnsw += 1;
             }
+            else
+                user.QuestCounter = 10;
 
-            repo.UpdateUser(user);
 
-            client.SendTextMessageAsync(chatId: callback.From.Id, text: prefix 
+            usRepo.Update(user);
+
+            if (user.QuestCounter > 0)
+            {
+                client.EditMessageTextAsync(chatId: callback.From.Id, messageId: callback.Message.MessageId, text: prefix
                 + "Выберите правильный перевод для \""
-                + questions.ElementAt(id).Key + "\":", 
+                + questions.ElementAt(id).Value + "\":",
                 replyMarkup: inlineKeyboard);
-            
+            }
+
+            else
+            {
+                inlineKeyboard = new InlineKeyboardMarkup(new[]
+               {new []{
+                        InlineKeyboardButton.WithCallbackData("« Меню","menu")}
+                });
+                client.EditMessageTextAsync(chatId: callback.From.Id, messageId: callback.Message.MessageId, text: prefix
+                + "Игра окончена!",
+                replyMarkup: inlineKeyboard);
+            }
+
+
             return Task.CompletedTask;
         }
 
@@ -91,6 +113,9 @@ namespace LanguageBot
 
                     else list.Add(value);
                 }
+                    
+
+
             }
 
             return list;
