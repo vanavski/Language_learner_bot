@@ -21,13 +21,17 @@ namespace LanguageBot
         }
 
         private static InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(new[]
-              {new []{
-                    InlineKeyboardButton.WithCallbackData("За сутки","statistics:day"),
-                    InlineKeyboardButton.WithCallbackData("За неделю","statistics:week"),
-                    InlineKeyboardButton.WithCallbackData("За месяц","statistics:month"),
-                    InlineKeyboardButton.WithCallbackData("За все время", "statistics:all")},
-                new []{
-                        InlineKeyboardButton.WithCallbackData("« Меню","menu")}
+              {
+              new []{
+                InlineKeyboardButton.WithCallbackData("За сутки","statistics:day") },
+              new []{
+                InlineKeyboardButton.WithCallbackData("За неделю","statistics:week") },
+              new []{
+                InlineKeyboardButton.WithCallbackData("За месяц","statistics:month") },
+              new []{
+                InlineKeyboardButton.WithCallbackData("За все время", "statistics:all")},
+              new []{
+                InlineKeyboardButton.WithCallbackData("« Меню","menu")}
                 });
         public override Task ExecuteAsync(CallbackQuery callback, TelegramBotClient client)
         {
@@ -57,10 +61,10 @@ namespace LanguageBot
                         break;
                 }
                 var st = stRepo.Get(period, user.Id);
-                client.EditMessageTextAsync(chatId: callback.From.Id, messageId: callback.Message.MessageId, text: "Статистика ответов за "+ postfix +":\nПравильных - " + st.Item1 + "\nНеправильных - " + st.Item2, replyMarkup: inlineKeyboard);
+                client.EditMessageTextAsync(chatId: callback.From.Id, messageId: callback.Message.MessageId, text: "Статистика ответов за " + postfix + ":\nПравильных - " + st.Item1 + "\nНеправильных - " + st.Item2, replyMarkup: inlineKeyboard);
             }
             else
-                client.EditMessageTextAsync(chatId: callback.From.Id, messageId: callback.Message.MessageId, text: "Выберите период", replyMarkup: inlineKeyboard);
+                client.EditMessageTextAsync(chatId: callback.From.Id, messageId: callback.Message.MessageId, text: "Выберите период:", replyMarkup: inlineKeyboard);
 
             return Task.CompletedTask;
         }

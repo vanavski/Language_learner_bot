@@ -64,6 +64,10 @@ namespace LanguageBot
                 Bot.CallBackCommands[2].ExecuteAsync(callback, client);
             else if (callback.Data.EndsWith("game"))
                 Bot.CallBackCommands[3].ExecuteAsync(callback, client);
+            else if (callback.Data.EndsWith("teach"))
+                Bot.CallBackCommands[6].ExecuteAsync(callback, client);
+            else if (callback.Data.EndsWith("mat"))
+                Bot.CallBackCommands[7].ExecuteAsync(callback, client);
             else 
                 client.EditMessageTextAsync(chatId: callback.From.Id, messageId: callback.Message.MessageId, text: "Меню:", replyMarkup: inlineKeyboard);
             return Task.CompletedTask;
