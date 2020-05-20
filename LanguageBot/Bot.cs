@@ -32,7 +32,7 @@ namespace LanguageBot
                 new TeacherCallback(),
                 new MaterialsCallback()
             };
-            var socks = new HttpToSocks5Proxy("185.10.57.107", 1234);
+            var socks = new HttpToSocks5Proxy("103.216.82.153", 6667);
             return client= new TelegramBotClient("1145240060:AAGBCPgnDnBHNjgRAo3SdobV2CJxpg7zd1U",socks);
         }
     }

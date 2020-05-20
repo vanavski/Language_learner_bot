@@ -83,7 +83,7 @@ namespace LanguageBot
             else
             {
                 inlineKeyboard = new InlineKeyboardMarkup(new[]
-               {new []{
+                {new []{
                         InlineKeyboardButton.WithCallbackData("« Меню","menu")}
                 });
                 client.EditMessageTextAsync(chatId: callback.From.Id, messageId: callback.Message.MessageId, text: prefix

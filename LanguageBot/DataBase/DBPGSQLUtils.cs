@@ -14,6 +14,7 @@ namespace LanguageBot.DataBase
         public DbSet<Question> Questions { get; set; }
 
         public DbSet<Result> Results { get; set; }
+        public DbSet<Topic> Topics { get; set; }
 
         public DBPGSQLUtils(DbContextOptions<DBPGSQLUtils> options) : base(options)
         {

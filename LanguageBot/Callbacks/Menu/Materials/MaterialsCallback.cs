@@ -27,10 +27,25 @@ namespace LanguageBot
         public override Task ExecuteAsync(CallbackQuery callback, TelegramBotClient client)
         {
             var repo = Depends.Provider.GetService<UsersRepository>();
+            var matRepo = Depends.Provider.GetService<TopicsRepository>();
             var user = repo.Get(callback.From.Id);
             user.PreviousCommand = "mat";
             repo.Update(user);
-            client.EditMessageTextAsync(chatId: callback.From.Id, messageId: callback.Message.MessageId, text: "Данный раздел находится в разработке.", replyMarkup: inlineKeyboard);
+
+            var dict = matRepo.Get(user.Language.ToString());
+
+            var tex = "";
+            var i = 0;
+            foreach (var item in dict)
+            {
+                if (i < 10)
+                {
+                    tex += item.Key + "\n" + item.Value + "\n" + "\n";
+                    i++;
+                }
+            }
+
+            client.EditMessageTextAsync(chatId: callback.From.Id, messageId: callback.Message.MessageId, text: tex, replyMarkup: inlineKeyboard);
             return Task.CompletedTask;
         }
     }
